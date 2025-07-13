@@ -6,17 +6,19 @@ using AliceConnect.Bluetooth.Handlers;
 using AliceConnect.Bluetooth.Services;
 using AlienFruit.CommandLine;
 using AlienFruit.Core.Abstractions;
+using AlienFruit.FluentConsole;
+using AlienFruit.FluentConsole.AsciiArt;
 using AlienFruit.Otml.Configuration;
+using Figgle;
+using Figgle.Fonts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.Reflection;
 using System.Text;
 
-const string SPEAKER_NAME = "Станция Мини 3";
-const string TARGET_AUDIO_DEVICE = "Headphones";
 
 Console.OutputEncoding = Encoding.UTF8;
-
 
 
 using IHost host = Host.CreateDefaultBuilder(args)
@@ -35,6 +37,23 @@ using IHost host = Host.CreateDefaultBuilder(args)
     })
 .Build();
 await host.StartAsync();
+
+
+var assembly = Assembly.GetExecutingAssembly();
+var version = assembly
+    .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+    .InformationalVersion.Split('+', StringSplitOptions.RemoveEmptyEntries)
+.First();
+
+FConsole.GetInstance().DrawDemo(DemoPicture.AlienfruitLogo);
+FConsole
+    .Color(ConsoleColor.Blue)
+    .WriteLine(FiggleFonts.Standard.Render("AliceConnect"))
+    .ResetColors()
+    .Color(ConsoleColor.Green)
+    .WriteLine($"Version: {version}")
+    .NextLine()
+    .ResetColors();
 
 await CommandLineProcessor.GetBuilder()
     .WithCommandLineSettings(x => x.ThrowExcceptions = true)
