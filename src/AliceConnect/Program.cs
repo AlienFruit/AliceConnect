@@ -9,7 +9,6 @@ using AlienFruit.Core.Abstractions;
 using AlienFruit.FluentConsole;
 using AlienFruit.FluentConsole.AsciiArt;
 using AlienFruit.Otml.Configuration;
-using Figgle;
 using Figgle.Fonts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,8 +20,12 @@ using System.Text;
 Console.OutputEncoding = Encoding.UTF8;
 
 
+var currentAssembly = Assembly.GetExecutingAssembly();
+var assemblyLocation = Path.GetDirectoryName(currentAssembly.Location);
+var settingsPath = Path.Combine(assemblyLocation ?? ".", "settings.otml");
+
 using IHost host = Host.CreateDefaultBuilder(args)
-    .AddOtmlConfigurationFile("settings.otml")
+    .AddOtmlConfigurationFile(settingsPath)
     .ConfigureLogging(logging =>
     {
         logging.SetMinimumLevel(LogLevel.Warning);
@@ -38,9 +41,7 @@ using IHost host = Host.CreateDefaultBuilder(args)
 .Build();
 await host.StartAsync();
 
-
-var assembly = Assembly.GetExecutingAssembly();
-var version = assembly
+var version = currentAssembly
     .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
     .InformationalVersion.Split('+', StringSplitOptions.RemoveEmptyEntries)
 .First();
