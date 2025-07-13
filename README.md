@@ -20,24 +20,6 @@ This project serves as a foundation for Windows automation scenarios where remot
 - Windows 10/11
 - .NET 8.0 or later
 
-## Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/AliceConnect.git
-cd AliceConnect
-```
-
-2. Build the project:
-```bash
-dotnet build
-```
-
-3. Run the application:
-```bash
-dotnet run
-```
-
 ## Usage
 
 ### Basic Audio Device Switching
@@ -66,7 +48,6 @@ AliceConnect switch-audio -n "Yandex Station Mini 3"
 # 3. Switch back to primary speakers (station maintains control)
 AliceConnect switch-audio -n "Speakers"
 ```
-
 
 ## How It Works
 
