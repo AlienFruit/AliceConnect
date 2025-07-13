@@ -25,6 +25,9 @@
     <None Update="Python\led_panel_power.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="select-alice.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="select-alice.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

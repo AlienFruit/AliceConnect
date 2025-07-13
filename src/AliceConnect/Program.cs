@@ -49,15 +49,17 @@ var version = currentAssembly
 if (args.Length == 0)
 {
     FConsole.GetInstance().DrawDemo(DemoPicture.AlienfruitLogo);
-    FConsole
-        .Color(ConsoleColor.Blue)
-        .WriteLine(FiggleFonts.Standard.Render("AliceConnect"))
-        .ResetColors()
-        .Color(ConsoleColor.Green)
-        .WriteLine($"Version: {version}")
-        .NextLine()
-        .ResetColors();
 }
+
+FConsole
+    .Color(ConsoleColor.Blue)
+    .WriteLine(FiggleFonts.Standard.Render("AliceConnect"))
+    .ResetColors()
+    .Color(ConsoleColor.Green)
+    .WriteLine($"Version: {version}")
+    .NextLine()
+    .ResetColors();
+
 
 await CommandLineProcessor.GetBuilder()
     .WithCommandLineSettings(x => x.ThrowExcceptions = true)
