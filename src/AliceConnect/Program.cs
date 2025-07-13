@@ -21,25 +21,6 @@ Console.OutputEncoding = Encoding.UTF8;
 
 
 var currentAssembly = Assembly.GetExecutingAssembly();
-var assemblyLocation = Path.GetDirectoryName(currentAssembly.Location);
-var settingsPath = Path.Combine(assemblyLocation ?? ".", "settings.otml");
-
-using IHost host = Host.CreateDefaultBuilder(args)
-    .AddOtmlConfigurationFile(settingsPath)
-    .ConfigureLogging(logging =>
-    {
-        logging.SetMinimumLevel(LogLevel.Warning);
-    })
-    .ConfigureServices((context, services) =>
-    {
-        services
-            .AddSingleton<BluetoothService>()
-            .AddSingleton<AudioService>()
-            .AddScoped<IHandler<ConnectBluetoothAudio>, ConnectBluetoothAudioHandler>()
-            .AddScoped<IHandler<SwitchAudioDevice>, SwitchAudioDeviceHandler>();
-    })
-.Build();
-await host.StartAsync();
 
 var version = currentAssembly
     .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
@@ -60,6 +41,25 @@ FConsole
     .NextLine()
     .ResetColors();
 
+var assemblyLocation = Path.GetDirectoryName(currentAssembly.Location);
+var settingsPath = Path.Combine(assemblyLocation ?? ".", "settings.otml");
+
+using IHost host = Host.CreateDefaultBuilder(args)
+    .AddOtmlConfigurationFile(settingsPath)
+    .ConfigureLogging(logging =>
+    {
+        logging.SetMinimumLevel(LogLevel.Warning);
+    })
+    .ConfigureServices((context, services) =>
+    {
+        services
+            .AddSingleton<BluetoothService>()
+            .AddSingleton<AudioService>()
+            .AddScoped<IHandler<ConnectBluetoothAudio>, ConnectBluetoothAudioHandler>()
+            .AddScoped<IHandler<SwitchAudioDevice>, SwitchAudioDeviceHandler>();
+    })
+.Build();
+await host.StartAsync();
 
 await CommandLineProcessor.GetBuilder()
     .WithCommandLineSettings(x => x.ThrowExcceptions = true)

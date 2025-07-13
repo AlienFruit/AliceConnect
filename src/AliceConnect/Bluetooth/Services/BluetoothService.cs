@@ -115,10 +115,10 @@ namespace AliceConnect.Bluetooth.Services
                 return;
             }
 
-            logger.LogInformation($"Found {devices.Count} paired devices");
+            logger.LogDebug($"Found {devices.Count} paired devices");
             foreach (var device in devices)
             {
-                logger.LogInformation($"Device: {device.szName}, Connected: {device.fConnected}");
+                logger.LogDebug($"Device: {device.szName}, Connected: {device.fConnected}");
             }
 
             var speaker = devices.FirstOrDefault(d => 
@@ -231,13 +231,13 @@ namespace AliceConnect.Bluetooth.Services
 
                 radios.Add(radioHandle);
 
-                logger.LogInformation("Found first Bluetooth adapter");
+                logger.LogDebug("Found first Bluetooth adapter");
 
                 // Search for additional adapters
                 while (BluetoothFindNextRadio(findHandle, out radioHandle))
                 {
                     radios.Add(radioHandle);
-                    logger.LogInformation($"Found additional Bluetooth adapter: 0x{radioHandle:X}");
+                    logger.LogDebug($"Found additional Bluetooth adapter: 0x{radioHandle:X}");
                 }
 
                 if (radios.Count == 0)
@@ -257,7 +257,7 @@ namespace AliceConnect.Bluetooth.Services
 
                 foreach (var radio in radios)
                 {
-                    logger.LogInformation($"Checking adapter: 0x{radio:X}");
+                    logger.LogDebug($"Checking adapter: 0x{radio:X}");
 
                     int disableResult = BluetoothSetServiceState(
                         radio,

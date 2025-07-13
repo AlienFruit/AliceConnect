@@ -20,10 +20,10 @@ namespace AliceConnect.Audio.Services
                 return;
             }
 
-            logger.LogInformation("Available devices:");
+            logger.LogDebug("Available devices:");
             foreach (var device in devices)
             {
-                logger.LogInformation($"- {device.FullName} ({device.State})");
+                logger.LogDebug($"- {device.FullName} ({device.State})");
             }
 
             var targetDevice = devices.FirstOrDefault(d => d.FullName.Contains(deviceName, StringComparison.OrdinalIgnoreCase));
