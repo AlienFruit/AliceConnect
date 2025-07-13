@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AliceConnect": {
+      "commandName": "Project",
+      "commandLineArgs": "switch-audio -n \"Станция Мини 3\""
+    }
+  }
+}
